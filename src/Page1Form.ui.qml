@@ -13,12 +13,12 @@ Item {
 
         TextField {
             id: textField1
-            placeholderText: qsTr("Text Field")
+            placeholderText: qsTr("文本")
         }
 
         Button {
             id: button1
-            text: qsTr("Press Me")
+            text: "点击我"
         }
     }
 }

@@ -32,6 +32,7 @@ find_package(Qt5 "${QT_MIN_VERSION}"
         QuickControls2
 )
 
+
 ## Add subdirectories:
 add_subdirectory(fluid)
 add_subdirectory(src)
