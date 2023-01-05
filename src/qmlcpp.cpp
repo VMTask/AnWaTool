@@ -3,6 +3,8 @@
 #include <windows.h>
 #include <cstdlib>
 #include <string>
+#include <thread>
+extern bool connected_status;
 QmlCpp::QmlCpp(QObject *parent)
     : QObject{parent}
 {
@@ -33,6 +35,52 @@ void QmlCpp::OpenAdbCommandLine()
     system("start cmd.exe");
 	std::string get = command_popen("dir");
 }
+void QmlCpp::getAndroidDeviceStatus() {
+	while (1) {
+		try {
+			std::string::size_type idx;
+			std::string check = command_popen("adb get-state");
+			idx = check.find("device");
+			if (idx == std::string::npos)
+			{
+				connected_status = false;
+			}
+			else {
+				connected_status = true;
+			}
+		}
+		catch (...) {
+		}
+	}
+}
+void QmlCpp::threadStart() {
+	std::thread getAndroidDeviceStatus_thread(&QmlCpp::getAndroidDeviceStatus,this);
+	getAndroidDeviceStatus_thread.detach();
+}
 
-
-
+QString QmlCpp::getAndroidDeviceStatus_qstr() {
+	QString result = "";
+	if (connected_status == true) {
+		QString result = "true";
+	}
+	else if (connected_status == false){
+		QString result = "false";
+	}
+	else {
+		QmlCpp::getAndroidDeviceStatus_qstr();
+	}
+	return result;
+}
+QString QmlCpp::imageurl() {
+	QString result = "";
+	if (connected_status == true) {
+		QString result = "connect_on.png";
+	}
+	else if (connected_status == false) {
+		QString result = "connect_off.png";
+	}
+	else {
+		QmlCpp::imageurl();
+	}
+	return result;
+}

@@ -3,22 +3,20 @@ import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
 
 Item {
-    property alias textField1: textField1
-    property alias button1: button1
 
     RowLayout {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.topMargin: 20
         anchors.top: parent.top
+    }
 
-        TextField {
-            id: textField1
-            placeholderText: qsTr("文本")
-        }
-
-        Button {
-            id: button1
-            text: "点击我"
-        }
+    Image {
+        id: image
+        x: 270
+        y: 62
+        width: 100
+        height: 100
+        source: qmlCpp.imageurl()
+        fillMode: Image.PreserveAspectFit
     }
 }

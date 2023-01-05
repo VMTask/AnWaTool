@@ -13,6 +13,16 @@ FluidControls.ApplicationWindow {
     appBar.maxActionCount: 3
     Material.primary: Material.Blue
     Material.accent: Material.Indigo
+    Timer{
+    id:                             _timer
+    interval:                       200
+    running:                        true
+    repeat:                         false
+    onTriggered: {
+        console.log("--------------------------------------------------")
+        qmlCpp.threadStart()
+    }
+    }
 
     FluidControls.NavigationDrawer {
         id: navDrawer
