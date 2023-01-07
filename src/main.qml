@@ -8,6 +8,10 @@ FluidControls.ApplicationWindow {
     id: window
     width: 1083
     height: 636
+    minimumWidth: 1083
+    maximumWidth: 1083
+    minimumHeight: 636
+    maximumHeight: 636
     title: qsTr("AnWaTool")
     visible: true
     appBar.maxActionCount: 3
@@ -19,8 +23,9 @@ FluidControls.ApplicationWindow {
     running:                        true
     repeat:                         false
     onTriggered: {
-        console.log("--------------------------------------------------")
         qmlCpp.threadStart()
+        console.log(qmlCpp.imageurl())
+        console.log(qmlCpp.getAndroidDeviceStatus_qstr())
     }
     }
 
@@ -69,6 +74,7 @@ FluidControls.ApplicationWindow {
                 toolTip: qsTr("Open adb command")
                 onTriggered: {
                     qmlCpp.OpenAdbCommandLine();
+                    console.log(qmlCpp.imageurl())
                 }
             }
         ]
@@ -76,9 +82,6 @@ FluidControls.ApplicationWindow {
     StackView {
             id: stackView
             anchors.fill: parent
-            Image {
-                source: "toolbox.png"
-            }
             initialItem: FluidControls.Placeholder {
                 text: qsTr("AnWaTool")
                 subText: qmlCpp.qstring_command_popen("powershell -NoProfile curl.exe -X POST --data-urlencode a=b --data-urlencode c=d https://v1.hitokoto.cn/?encode=text")

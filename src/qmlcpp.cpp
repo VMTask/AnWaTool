@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <string>
 #include <thread>
-extern bool connected_status;
+extern bool connected_status = false;
 QmlCpp::QmlCpp(QObject *parent)
     : QObject{parent}
 {
@@ -13,7 +13,7 @@ QmlCpp::QmlCpp(QObject *parent)
 std::string QmlCpp::command_popen(const char* cmd) {
 	char buffer[128];                         //定义缓冲区                     
 	char result[1024 * 4] = "";
-	FILE* pipe = _popen(cmd, "r");            //打开管道，并执行命令 
+	FILE* pipe = _popen(cmd, "r");            //打开管道，并执行命令
 	if (!pipe)
 		return 0;                      //返回0表示运行失败 
 
@@ -59,28 +59,36 @@ void QmlCpp::threadStart() {
 }
 
 QString QmlCpp::getAndroidDeviceStatus_qstr() {
-	QString result = "";
-	if (connected_status == true) {
-		QString result = "true";
-	}
-	else if (connected_status == false){
-		QString result = "false";
-	}
-	else {
-		QmlCpp::getAndroidDeviceStatus_qstr();
-	}
+	QString result = QString::number(connected_status);
 	return result;
 }
 QString QmlCpp::imageurl() {
-	QString result = "";
-	if (connected_status == true) {
-		QString result = "connect_on.png";
+	switch (connected_status)
+	{
+	case true:{
+		return "connect_on.png";
+		break;
 	}
-	else if (connected_status == false) {
-		QString result = "connect_off.png";
+	case false:{
+		return "connect_off.png";
+		break;
 	}
-	else {
-		QmlCpp::imageurl();
+	default: {
+		return "undefined";
+		break;
 	}
-	return result;
+	}
+}
+QString QmlCpp::text_status() {
+    switch(connected_status)
+    {
+        case true:{
+            return "已连接";
+            break;
+        }
+        case false:{
+            return "未连接";
+            break;
+        }
+    }
 }

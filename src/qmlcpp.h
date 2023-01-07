@@ -15,10 +15,10 @@ public:
     Q_INVOKABLE void threadStart();
     Q_INVOKABLE QString getAndroidDeviceStatus_qstr();
     Q_INVOKABLE QString imageurl();
+    Q_INVOKABLE QString text_status();
 private:
     const char *cmd;
     QString command;
-    bool connected_status;
 signals:
 
 };

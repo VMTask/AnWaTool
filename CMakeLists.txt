@@ -9,7 +9,7 @@ project("AnWaTool"
 ## Shared macros and functions:
 set(LIRI_LOCAL_ECM TRUE)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/fluid/cmake/shared/modules")
-
+set(CMAKE_PREFIX_PATH D:/Qt/5.15.2/mingw81_64)
 ## Configure Fluid:
 option(FLUID_WITH_DOCUMENTATION "" OFF)
 option(FLUID_WITH_DEMO "" OFF)
